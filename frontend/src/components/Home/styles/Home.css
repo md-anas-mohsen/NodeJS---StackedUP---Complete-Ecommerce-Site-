@@ -1,0 +1,26 @@
+.home {
+    padding-top: 25px;
+}
+
+.home__filters {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 250px;
+}
+
+.home__title {
+    padding-left: 80px;
+}
+
+.home__products {
+    padding: 50px;
+    padding-bottom: 20px;
+}
+
+.home__pagination {
+    padding-bottom: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
