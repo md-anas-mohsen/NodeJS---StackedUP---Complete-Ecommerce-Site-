@@ -23,14 +23,14 @@ app.use('/api/v1', orders);
 app.use('/api/v1', payment);
 
 if(process.env.NODE_ENV === 'PRODUCTION') {
-    app.use('/', express.static(path.join(__dirname, '../frontend/build')));
-    app.use('/admin', express.static(path.join(__dirname, '../admin/build')));
+    app.use('/', express.static(path.join(process.cwd(), '../frontend/build')));
+    app.use('/admin', express.static(path.join(process.cwd(), '../admin/build')));
 
     app.get('/*', function (req, res) {
-        res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+        res.sendFile(path.join(process.cwd(), '../frontend/build', 'index.html'));
     });
     app.get('/admin/*', function (req, res) {
-        res.sendFile(path.join(__dirname, '../admin/build', 'index.html'));
+        res.sendFile(path.join(process.cwd(), '../admin/build', 'index.html'));
     });
 }
 
