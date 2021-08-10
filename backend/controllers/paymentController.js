@@ -2,11 +2,7 @@ const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 // const dotenv = require('dotenv');
 
 if (process.env.NODE_ENV !== "PRODUCTION") {
-    require('dotenv').dotenv.config({path: "backend/config/config.env"});
-}
-
-if (process.env.NODE_ENV !== "PRODUCTION") {
-    require('dotenv').dotenv.config({path: "backend/config/config.env"});
+    require('dotenv').config({path: "backend/config/config.env"});
 }
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
