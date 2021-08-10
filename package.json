@@ -11,7 +11,7 @@
     "dev": "SET NODE_ENV=DEVELOPMENT& nodemon backend/server",
     "prod": "SET NODE_ENV=PRODUCTION& nodemon backend/server",
     "seeder": "node backend/utils/seeder.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=FALSE && npm install --prefix frontend && npm run build --prefix frontend && npm install --prefix admin && npm run build --prefix admin"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=FALSE && npm install --prefix frontend && npm run build --prefix frontend && npm install --legacy-peer-deps --prefix admin && npm run build --prefix admin"
   },
   "author": "Anas Mohsen",
   "license": "ISC",
