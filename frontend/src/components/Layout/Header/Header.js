@@ -43,7 +43,7 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: [
-      "Amazon Ember", 
+      "Georama", 
       "sans-serif"
     ].join(",")
   }
