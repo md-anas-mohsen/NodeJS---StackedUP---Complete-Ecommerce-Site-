@@ -1,4 +1,4 @@
-import { Avatar, Grid, Typography, Card, makeStyles, Button, IconButton } from '@material-ui/core';
+import { Avatar, Grid, Typography, Card, makeStyles, Button, IconButton, useMediaQuery } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import React, {useEffect} from 'react';
 import { useSelector } from 'react-redux';
@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Profile = ({match, history}) => {
     const classes = useStyles();
+    const sm = useMediaQuery("(max-width: 600px)");
     const { user, loading } = useSelector(state => state.auth);
 
     return (
@@ -118,7 +119,7 @@ const Profile = ({match, history}) => {
                 </Grid>
                 :match.path === "/myprofile/orders" ?
                 <Grid container justifyContent="center">
-                    <Grid item xs={12} md={11} style={{overflowX: "scroll"}}><OrderList /></Grid>
+                    <Grid item xs={12} md={11} style={{overflowX: sm && "scroll"}}><OrderList /></Grid>
                 </Grid>
                 :match.path === "/myprofile/settings" &&
                 <UpdateProfile history={history} />}

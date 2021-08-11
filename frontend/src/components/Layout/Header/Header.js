@@ -224,7 +224,7 @@ const Header = () => {
         open={isMenuOpen}
         onClose={handleMenuClose}
       >
-        {isAuthenticated && !loading && user?.role === "admin" &&
+        {isAuthenticated && !loading &&
         <MenuItem component={Link} to="/myprofile/orders">
           <IconButton color="inherit"><LocalShippingIcon /></IconButton>My Orders
         </MenuItem>}

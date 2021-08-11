@@ -138,7 +138,6 @@ const UpdateProfile = ({history}) => {
                             fullWidth
                             id="name"
                             label="Full Name"
-                            autoFocus
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                         />
@@ -185,7 +184,6 @@ const UpdateProfile = ({history}) => {
                             fullWidth
                             id="oldPassword"
                             label="Old Password"
-                            autoFocus
                             value={oldPassword}
                             onChange={(e) => setOldPassword(e.target.value)}
                         />
