@@ -40,10 +40,10 @@ const Widget = ({ value, title, color, fullWidth }) => {
 const WidgetsDropdown = ({ productCount, outOfStock, ordersPending, totalAmount, totalUsers }) => {
   return (
     <CRow>
-      <Widget title="Products" value={productCount} color="primary" />
-      {outOfStock > 0 && <Widget title="Out Of Stock" value={outOfStock} color="danger" />}
-      <Widget title="Orders Pending" value={ordersPending} color="warning" />
-      <Widget title="Users" value={totalUsers} color="info" />
+      <Widget title="Products" value={productCount || '0'} color="primary" />
+      <Widget title="Out Of Stock" value={outOfStock || '0'} color="danger" />
+      <Widget title="Orders Pending" value={ordersPending || '0'} color="warning" />
+      <Widget title="Users" value={totalUsers || '0'} color="info" />
       <Widget
         title="Total Amount"
         value={`$${totalAmount.toFixed(2)}`}

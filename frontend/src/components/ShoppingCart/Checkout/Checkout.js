@@ -314,7 +314,6 @@ function AddressForm() {
                   <MenuItem key={country[1].name} value={country[1].name}
                     style={{display: "flex", alignItems: "center"}}
                   >
-                    <img src={`https://www.countryflags.io/${country[0]}/flat/16.png`} alt=""></img>
                     <em>{country[1].name}</em>
                   </MenuItem>
                 ))}
@@ -580,7 +579,7 @@ export default function Checkout({openState}) {
                   Thank you for your order.
                 </Typography>
                 <Typography variant="subtitle1">
-                  {`Your order number is #${order?._id}. Track your order here`}
+                  {`Your order number is #${order?._id}. Track your order `} <Link to={`/order/${order?._id}`}>here</Link>
                 </Typography>
               </React.Fragment>
             ) : (
@@ -621,7 +620,7 @@ export default function Checkout({openState}) {
           </React.Fragment>
         </Paper>
       </div>
-      {alert && <PageAlert type={alert.type} message={alert.message} />}
+      {alert && alert.message !== "Item Added to Cart" && <PageAlert type={alert.type} message={alert.message} />}
       </Dialog>
       </CheckoutContext.Provider>
   );

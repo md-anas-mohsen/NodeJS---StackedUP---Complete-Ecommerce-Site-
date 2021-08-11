@@ -1,8 +1,6 @@
-import { Avatar, Grid, Typography, Card, makeStyles, Button, IconButton, CircularProgress, TextField } from '@material-ui/core';
-import { Skeleton } from '@material-ui/lab';
+import { Avatar, Grid, Typography, makeStyles, Button, CircularProgress, TextField } from '@material-ui/core';
 import React, {useContext, useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import PhotoIcon from '@material-ui/icons/Photo';
 import EditIcon from '@material-ui/icons/Edit';
 import SecurityIcon from '@material-ui/icons/Security';
@@ -49,14 +47,14 @@ const UpdateProfile = ({history}) => {
         }
         if(error) {
             setAlert({type: "error", message: error});
+            dispatch(clearErrors());
         }
         if (isUpdated) {
             setAlert({type: "success", message: message});
             dispatch(loadUser());
             history.push('/myprofile');
-            dispatch({
-                type: UPDATE_PROFILE_RESET
-            });
+            dispatch({ type: UPDATE_PROFILE_RESET });
+            dispatch({ type: UPDATE_PASSWORD_RESET });
         }
     }, [user, error, message, dispatch, history, isUpdated, setAlert]);
 

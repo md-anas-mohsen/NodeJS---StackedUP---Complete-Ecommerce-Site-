@@ -13,7 +13,7 @@ const ProductReviews = React.lazy(() => import('./views/pages/products/ProductRe
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 
 const routes = [
-  { path: '/admin/', exact: true, name: 'Admin' },
+  { path: '/', exact: true, name: 'Admin' },
   { path: '/admin/dashboard', name: 'Dashboard', component: Dashboard, exact: true },
   { path: '/admin/products', name: 'Products', exact: true },
   {

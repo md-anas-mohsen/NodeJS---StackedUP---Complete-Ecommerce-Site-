@@ -24,7 +24,6 @@ export const getProducts = (keyword = "", page = 1, price = [1, 10000], category
             link += `&category=${category}`;
         }
 
-        console.log(link);
         const {data} = await axios.get(link);
         
         dispatch({

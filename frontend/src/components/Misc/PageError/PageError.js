@@ -1,4 +1,4 @@
-import { Box, Card, Grid, ThemeProvider, Typography } from '@material-ui/core';
+import { Box, Card, Grid, ThemeProvider, Typography, useMediaQuery } from '@material-ui/core';
 import React from 'react';
 import { titleTheme } from '../../Home/Home';
 import { Info, MaximumRed, Warning } from '../Colors/Colors';
@@ -7,6 +7,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import WarningIcon from '@material-ui/icons/Warning';
 
 const PageError = ({ error, severity, svgPath }) => {
+    const sm = useMediaQuery("(max-width: 600px)");
     const Icon = (severity) => {
         switch(severity) {
             case "warning":
@@ -19,17 +20,17 @@ const PageError = ({ error, severity, svgPath }) => {
     }
 
     return (
-        <Box p={5}>
+        <Box p={sm ? 1 : 5}>
             <Grid container justifyContent="center">
                 <Grid component={Card} elevation={5} xs={12} md={8} item>
                     <Box p={10}>
                         <Box p={2} align="center">{Icon(severity)}</Box>
                         {svgPath &&
                         <Box p={2} align="center">
-                            <object aria-label="order confirmed" type="image/svg+xml" data={svgPath} width="300px" />
+                            <object aria-label="order confirmed" type="image/svg+xml" data={svgPath} width={sm ? "100%" : "70%"} />
                         </Box>}
                         <ThemeProvider theme={titleTheme}>
-                            <Typography align="center" variant="h4">
+                            <Typography align="center" variant={sm ? "h6" : "h5"}>
                                 {error}
                             </Typography>
                         </ThemeProvider>

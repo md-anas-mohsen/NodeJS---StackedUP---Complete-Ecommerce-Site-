@@ -1,20 +1,17 @@
 import React, { Fragment, useContext, useState } from 'react';
 import MetaData from '../../Layout/MetaData/MetaData';
 import {useDispatch, useSelector} from 'react-redux';
-import { Box, IconButton, Card, Grid, Typography, makeStyles, Button, ThemeProvider } from '@material-ui/core';
+import { Box, IconButton, Card, Grid, Typography, makeStyles, Button, ThemeProvider, useMediaQuery } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-import InfoIcon from '@material-ui/icons/Info';
 import './styles/Cart.css';
 import '../../Product/ProductCard/styles/ProductCard.css';
 import { addItemToCart, removeItemFromCart } from '../../../actions/cartActions';
 import { titleTheme } from '../../Home/Home';
-import { lightBlue } from '@material-ui/core/colors';
 import Checkout from '../Checkout/Checkout';
 import { AppContext } from '../../../context/AppContext';
 import { Link } from 'react-router-dom';
-import { Info } from '../../Misc/Colors/Colors';
 import PageError from '../../Misc/PageError/PageError';
 
 const useStyles = makeStyles(() => ({
@@ -53,6 +50,7 @@ const useStyles = makeStyles(() => ({
 const Cart = ({history}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const sm = useMediaQuery("(max-width:600px)");
     const { cartItems } = useSelector(state => state.cart);
     const { isAuthenticated } = useSelector(state => state.auth);
 
@@ -94,15 +92,15 @@ const Cart = ({history}) => {
             <div>
                 <ThemeProvider theme={titleTheme}>
                     <Box ml={5} pt={5}>
-                    <Typography variant="h4">
+                    <Typography variant={sm ? "h5" : "h4"}>
                         {cartItems.length}{cartItems.length === 1 ? ` item` : ` items`} in cart
                     </Typography>
                     </Box>
                 </ThemeProvider>
-                <Box p={5}>
+                <Box p={sm ? 0 : 5}>
                     <Grid className="cart" container spacing={2} direction="row-reverse">
                     <Grid item md={8}>
-                            <Grid className="cart__items" container component={Card} elevation={5} justifyContent="center">
+                            <Grid className="cart__items" container component={Card} square={sm} elevation={5} justifyContent="center">
                                 <Grid item xs={12}>
                                     <ThemeProvider theme={titleTheme}>
                                     <Grid className="cart__items__header" container>
@@ -162,7 +160,7 @@ const Cart = ({history}) => {
                                                 </Box>
                                             </Grid>
                                             <Grid item xs={2}>
-                                                <Typography align="center" variant="h6">
+                                                <Typography align="center" variant={sm ? "subtitle1" : "h6"}>
                                                     ${item.price}
                                                 </Typography>
                                             </Grid>
@@ -195,7 +193,7 @@ const Cart = ({history}) => {
                                             </Grid>
                                             <Grid item xs={2}>
                                                 <Box ml={2}>
-                                                <Typography align="center" variant="h6">
+                                                <Typography align="center" variant={sm ? "subtitle1" : "h6"}>
                                                     ${(item.price*item.quantity).toFixed(2)}
                                                 </Typography>
                                                 </Box>
@@ -209,12 +207,12 @@ const Cart = ({history}) => {
                             </Grid>
                         </Grid>
                         <Grid item md={4}>
-                            <Grid container component={Card} elevation={5}>
+                            <Grid container component={Card} square={sm} elevation={5}>
                                 <Grid item xs={12}>
                                     <Grid className="cart__items__header" container>
                                         <Grid item xs={12}>
                                             <ThemeProvider theme={titleTheme}>
-                                            <Typography align="center" variant="h4">
+                                            <Typography align="center" variant={sm ? "h5" : "h4"}>
                                                 Order Summary
                                             </Typography>
                                             </ThemeProvider>

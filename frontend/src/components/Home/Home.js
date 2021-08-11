@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, useMediaQuery } from '@material-ui/core';
 import React, {useState, useEffect, useContext} from 'react';
 import ProductCard from '../Product/ProductCard/ProductCard';
 import "./styles/Home.css";
@@ -27,6 +27,7 @@ export const titleTheme = createTheme({
 const Home = () => {
     const {loading, products, error, productCount, resPerPage} = useSelector(state => state.products);
     const dispatch = useDispatch();
+    const sm = useMediaQuery("(max-width:600px)");
     const {alertState, priceState, keywordState, categoryState, ratingState, searchQueryState} = useContext(AppContext);
     const [, setAlert] = alertState;
     const [searchQuery] = searchQueryState;
@@ -48,7 +49,6 @@ const Home = () => {
         }
     }, [category]);
     useEffect(() => {
-        console.log("RUN");
         setKeyword(query.get("keyword") || "");
         setCategory(query.get("category") || "");
         setPrice([query.get("price[gte]") || 1, query.get("price[lte]") || 100000]);
@@ -75,7 +75,7 @@ const Home = () => {
         <div className="home">
             <MetaData title={!keyword ? "Home" : keyword} />
             <ThemeProvider theme={titleTheme}>
-                <Typography variant="h3" align="center">
+                <Typography variant={sm ? "h5" : "h3"} align="center">
                     {!category && !keyword ? "Latest Products" : category}
                 </Typography>
             </ThemeProvider>
@@ -104,11 +104,11 @@ const Home = () => {
                     </div>
                 </div>
             :null}
-            {keyword ? 
-                <Typography variant="subtitle1" align="center">
-                    {`Results for "${keyword}"`}
+            {keyword && !loading && 
+                <Typography variant={productCount > 0 ? "subtitle1" : "h5"} align="center">
+                    {productCount > 0 ? `Results for '${keyword}'` : `No results found for '${keyword}'`}
                 </Typography>
-            :null}
+            }
             <Grid container align="center" className="home__products">
                 {loading ? [0, 1, 2, 3, 4, 5, 6, 7].map(i => {
                     return (
@@ -136,7 +136,7 @@ const Home = () => {
                     </Fragment>
                 )}
             </Grid>
-            {products ? (
+            {productCount > 0 ? (
                 <div className="home__pagination">
                     <Pagination 
                         size="large" 

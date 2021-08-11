@@ -22,12 +22,14 @@ const Dashboard = () => {
   }, [dispatch])
 
   useEffect(() => {
-    if (products && orders) {
-      setOutOfStock(0)
-      setOrdersPending(0)
+    setOutOfStock(0)
+    setOrdersPending(0)
+    if (products || orders) {
       products.forEach((product) => {
         if (product.stock === 0) setOutOfStock((prev) => prev + 1)
       })
+    }
+    if (orders) {
       orders.forEach((order) => {
         if (order.orderStatus === 'Processing') setOrdersPending((prev) => prev + 1)
       })
@@ -36,14 +38,14 @@ const Dashboard = () => {
 
   return (
     <>
-      {!loading && products && orders && totalAmount && users && (
+      {!loading && products && users && (
         <>
           <Metadata title="Dashboard" />
           <WidgetsDropdown
             productCount={products.length}
             outOfStock={outOfStock}
             ordersPending={ordersPending}
-            totalAmount={totalAmount}
+            totalAmount={totalAmount || 0}
             totalUsers={users.length}
           />
         </>

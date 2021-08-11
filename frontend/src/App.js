@@ -27,7 +27,7 @@ import NotFound404 from './components/Misc/NotFound404/NotFound404';
 let theme = createTheme({
   typography: {
     fontFamily: [
-      "Georama", 
+      "Amazon Ember", 
       "sans-serif"
     ].join(",")
   },
@@ -45,6 +45,7 @@ let theme = createTheme({
 });
 
 theme = responsiveFontSizes(theme);
+export const AppTheme = theme;
 
 function App() {
   const [alert, setAlert] = useState(null);
