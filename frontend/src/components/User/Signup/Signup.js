@@ -70,8 +70,9 @@ export default function Signup({history}) {
         history.push('/')
     }
     if (error) {
-        setAlert({type: "error", message: error});
-        dispatch(clearErrors());
+      if(error === "Login to view this resource") return;
+      setAlert({type: "error", message: error});
+      dispatch(clearErrors());
     }
   }, [dispatch, setAlert, isAuthenticated, error, history]);
 
