@@ -107,7 +107,7 @@ export default function Signup({history}) {
           {!loading && !isAuthenticated ?
           <Grid container justifyContent="center">
             {!sm && 
-            <Grid item component={Card} style={{ backgroundColor: PrussianBlue, color: MaximumYellowRed }} elevation={5} maxWidth="xs">
+            <Grid item component={Card} style={{ backgroundColor: PrussianBlue, color: MaximumYellowRed, border: "1px solid lightgray" }} elevation={5} maxWidth="xs">
               <Grid container direction="column" alignItems="center">
                 <ThemeProvider theme={logo}>
                   <Typography variant="h3" style={{padding: "25px"}}>

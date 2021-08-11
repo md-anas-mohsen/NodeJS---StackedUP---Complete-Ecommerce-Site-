@@ -185,7 +185,7 @@ const OrderDetails = ({match}) => {
         <div>
             {!pageError ? 
             <Grid className="orderDetails__main" direction="row" container justifyContent="center">
-                <Grid item component={Card} elevation={5} xs={12} md={8}>
+                <Grid item component={Card} elevation={5} xs={12} md={8} style={{border: "1px solid lightgray"}}>
                     <Grid container>
                         <Grid item xs={12} md={8}>
                           <Typography className="orderDetails__main__heading" variant="h4">

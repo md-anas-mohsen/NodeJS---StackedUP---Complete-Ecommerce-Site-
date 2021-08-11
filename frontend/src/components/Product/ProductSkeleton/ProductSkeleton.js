@@ -28,7 +28,7 @@ const ProductSkeleton = () => {
     const classes = useStyles();
 
     return (
-        <Card className={classes.root} elevation={5}>
+        <Card className={classes.root} elevation={5} style={{border: "1px solid lightgray"}}>
             <center>
                 <Skeleton variant="rect" width={210} height={150} />
             </center>

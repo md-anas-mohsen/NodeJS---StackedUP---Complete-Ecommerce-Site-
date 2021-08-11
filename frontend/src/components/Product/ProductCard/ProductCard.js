@@ -38,7 +38,7 @@ const ProductCard = ({name, image, price, ratings, numOfReviews, productID}) => 
     const classes = useStyles();
 
   return (
-    <Card className={classes.root} elevation={5}>
+    <Card className={classes.root} elevation={5} style={{border: "1px solid lightgray"}}>
         <img
           src={image.url}
           alt={name}
