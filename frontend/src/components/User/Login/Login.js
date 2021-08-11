@@ -75,7 +75,7 @@ export default function Login({history}) {
           {!loading && !isAuthenticated ?
           <Grid container justifyContent="center">
             {!sm && 
-            <Grid item component={Card} style={{ backgroundColor: PrussianBlue, color: MaximumYellowRed, border: "1px solid lightgray" }} elevation={5} maxWidth="xs">
+            <Grid item component={Card} style={{ backgroundColor: PrussianBlue, color: MaximumYellowRed, border: `1px solid ${PrussianBlue}` }} elevation={5} maxWidth="xs">
               <Grid container direction="column" alignItems="center">
                 <ThemeProvider theme={logo}>
                   <Typography variant="h3" style={{padding: "25px"}}>
@@ -88,7 +88,7 @@ export default function Login({history}) {
               </Grid>
             </Grid>}
             <Grid item>
-              <Container component={Card} style={{padding: "0"}} elevation={5} maxWidth="xs">
+              <Container component={Card} style={{padding: "0", border: "1px solid lightgray"}} elevation={5} maxWidth="xs">
                   <MetaData title={!loading ? "Sign In" : "Signing In"} />
                     {sm &&
                     <div item style={{backgroundColor: PrussianBlue, color: MaximumYellowRed, margin: "0" }}>
