@@ -6,6 +6,9 @@
 # testing
 /coverage
 
+#build
+/frontend/build
+/admin/build
 
 # misc
 /backend/config/config.env

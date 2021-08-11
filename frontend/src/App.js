@@ -27,7 +27,7 @@ import NotFound404 from './components/Misc/NotFound404/NotFound404';
 let theme = createTheme({
   typography: {
     fontFamily: [
-      "Amazon Ember", 
+      "Noto Sans JP", 
       "sans-serif"
     ].join(",")
   },
