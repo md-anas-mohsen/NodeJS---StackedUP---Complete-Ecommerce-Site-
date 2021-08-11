@@ -49,7 +49,7 @@ const theme = createTheme({
   }
 });
 
-const logo = createTheme({
+export const logo = createTheme({
   typography: {
     fontFamily: [
       "Satisfy", 
@@ -124,6 +124,17 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
+  },
+  activeCategory: {
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+  },
+  small: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
   },
 }));
 
@@ -353,7 +364,7 @@ const Header = () => {
                             setCategory(c);
                             history.push(`/search?category=${c}`);
                           }}
-                          className={category === c ? classes.search : ""}
+                          className={category === c ? classes.activeCategory : ""}
                         >
                           {c}
                         </MenuItem>
@@ -393,6 +404,7 @@ const Header = () => {
                           <Avatar 
                             src={user.avatar.url}
                             alt={user.name}
+                            className={classes.small}
                           />
                           :<AccountCircle />}
                         </IconButton>

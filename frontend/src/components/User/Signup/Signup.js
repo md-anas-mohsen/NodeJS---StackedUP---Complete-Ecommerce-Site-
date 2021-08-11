@@ -2,44 +2,33 @@ import React, {useContext, useEffect, useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import { Link as RouteLink }from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import PhotoIcon from '@material-ui/icons/Photo'
+import ViewQuiltIcon from '@material-ui/icons/ViewQuilt';
+import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useDispatch, useSelector } from 'react-redux';
 import { register, clearErrors } from '../../../actions/userActions';
 import { AppContext } from '../../../context/AppContext';
-import { Box, CircularProgress } from '@material-ui/core';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import { Box, Card, CircularProgress, ThemeProvider, useMediaQuery } from '@material-ui/core';
+import { MaximumYellowRed, PrussianBlue } from '../../Misc/Colors/Colors';
+import { logo } from '../../Layout/Header/Header';
+import MetaData from '../../Layout/MetaData/MetaData';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: "25px 0"
+    padding: "25px"
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: MaximumYellowRed,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -60,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Signup({history}) {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const sm = useMediaQuery("(max-width:700px)");
 
   const {alertState} = useContext(AppContext);
   const [,setAlert] = alertState;
@@ -111,101 +101,134 @@ export default function Signup({history}) {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
-        <form className={classes.form} noValidate>
-          <Grid container spacing={2}>
-          <Grid xs={12} style={{padding: "10px 0"}} container direction="column" justifyContent="center" alignItems="center">
-              <Avatar
-                src={avatar}
-                alt=""
-                className={classes.large}
-              > 
-              </Avatar>
-              <input 
-                onChange={handleChange} 
-                accept="image/*" 
-                name="avatar" 
-                className={classes.imageInput} 
-                id="icon-button-file" 
-                type="file" 
-              />
-              <label htmlFor="icon-button-file">
-                <Button 
-                  aria-label="upload picture" 
-                  component="span"
-                  startIcon={<PhotoIcon />}
-                  className={classes.changePicture}
-                >
-                  Change 
-                </Button>
-              </label>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                autoComplete="name"
-                name="name"
-                variant="outlined"
-                required
-                fullWidth
-                id="name"
-                label="Full Name"
-                autoFocus
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                onChange={handleChange}
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={handleSubmit}
-            disabled={loading}
-          >
-            {loading ? <CircularProgress /> : "Sign Up"}
-          </Button>
-          <Grid container justifyContent="flex-end">
+    <Box py={5}>
+      <MetaData title={!loading ? "Sign Up" : "Signing Up"} />
+          {!loading && !isAuthenticated ?
+          <Grid container justifyContent="center">
+            {!sm && 
+            <Grid item component={Card} style={{ backgroundColor: PrussianBlue, color: MaximumYellowRed }} elevation={5} maxWidth="xs">
+              <Grid container direction="column" alignItems="center">
+                <ThemeProvider theme={logo}>
+                  <Typography variant="h3" style={{padding: "25px"}}>
+                    StackedUP <ViewQuiltIcon fontSize="large" />
+                  </Typography>
+                </ThemeProvider>
+                <Avatar className={classes.avatar}>
+                  <PersonAddOutlinedIcon style={{ color: PrussianBlue }} />
+                </Avatar>
+              </Grid>
+            </Grid>}
             <Grid item>
-            <Link variant="body2" component={RouteLink} to="/signin">
-                Already have an account? Sign in
-            </Link>
+            <Container component={Card} maxWidth="xs" elevation={5} style={{padding: "0"}}>
+              {sm &&
+                    <div item style={{backgroundColor: PrussianBlue, color: MaximumYellowRed, margin: "0" }}>
+                      <Grid container alignItems="center" justifyContent="center">
+                        <ThemeProvider theme={logo}>
+                          <Typography variant="h3" style={{padding: "25px"}}>
+                            StackedUP <ViewQuiltIcon fontSize="large" />
+                          </Typography>
+                        </ThemeProvider>
+                      </Grid>
+                    </div>}
+              <div className={classes.paper}>
+                <Typography style={{marginRight: "auto"}} component="h1" variant="h4">
+                  Sign Up
+                </Typography>
+                <form className={classes.form} noValidate>
+                  <Grid container spacing={2}>
+                  <Grid xs={12} style={{padding: "10px 0"}} container direction="column" justifyContent="center" alignItems="center">
+                      <Avatar
+                        src={avatar}
+                        alt=""
+                        className={classes.large}
+                      > 
+                      </Avatar>
+                      <input 
+                        onChange={handleChange} 
+                        accept="image/*" 
+                        name="avatar" 
+                        className={classes.imageInput} 
+                        id="icon-button-file" 
+                        type="file" 
+                      />
+                      <label htmlFor="icon-button-file">
+                        <Button 
+                          aria-label="upload picture" 
+                          component="span"
+                          startIcon={<PhotoIcon />}
+                          className={classes.changePicture}
+                        >
+                          Change 
+                        </Button>
+                      </label>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        autoComplete="name"
+                        name="name"
+                        variant="outlined"
+                        required
+                        fullWidth
+                        id="name"
+                        label="Full Name"
+                        autoFocus
+                        onChange={handleChange}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        variant="outlined"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        autoComplete="email"
+                        onChange={handleChange}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        variant="outlined"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        onChange={handleChange}
+                      />
+                    </Grid>
+                  </Grid>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    onClick={handleSubmit}
+                    disabled={loading}
+                  >
+                    {loading ? <CircularProgress /> : "Sign Up"}
+                  </Button>
+                  <Grid container justifyContent="flex-end">
+                    <Grid item>
+                    <Link variant="body2" component={RouteLink} to="/signin">
+                        Already have an account? Sign in
+                    </Link>
+                    </Grid>
+                  </Grid>
+                </form>
+              </div>
+            </Container>
             </Grid>
           </Grid>
-        </form>
-      </div>
-    </Container>
+          : <Grid style={{minHeight: "100vh"}} container justifyContent="center" alignItems="center">
+              <Grid item>
+                <CircularProgress />
+              </Grid>
+            </Grid>}
+        </Box>
   );
 }
