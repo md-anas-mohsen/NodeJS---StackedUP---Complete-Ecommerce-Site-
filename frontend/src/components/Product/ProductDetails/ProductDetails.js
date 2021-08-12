@@ -117,6 +117,9 @@ export default function ProductDetails({match}) {
   }, [dispatch, match.params.id]);
 
   useEffect(() => {
+    if(success) {
+      dispatch(getProductDetails(match.params.id));
+    }
     if(error) {
       setPageError(error);
       dispatch(clearErrors());
@@ -132,7 +135,7 @@ export default function ProductDetails({match}) {
       setRating(0);
       setReview("");
     }
-  }, [dispatch, error, success, reviewError, setAlert]);
+  }, [dispatch, error, success, reviewError, setAlert, match.params.id]);
 
   const handleReview = () => {
     const reviewData = new FormData();

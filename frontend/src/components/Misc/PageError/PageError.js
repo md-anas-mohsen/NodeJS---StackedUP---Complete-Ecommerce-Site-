@@ -22,7 +22,7 @@ const PageError = ({ error, severity, svgPath }) => {
     return (
         <Box p={sm ? 1 : 5}>
             <Grid container justifyContent="center">
-                <Grid component={Card} elevation={5} xs={12} md={8} item>
+                <Grid component={Card} elevation={5} xs={12} md={8} item style={{ border: "1px solid lightgray" }}>
                     <Box p={10}>
                         <Box p={2} align="center">{Icon(severity)}</Box>
                         {svgPath &&

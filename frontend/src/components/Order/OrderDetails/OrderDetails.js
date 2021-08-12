@@ -14,6 +14,7 @@ import { clearErrors, getOrderDetails } from '../../../actions/orderActions';
 import { Skeleton } from '@material-ui/lab';
 import { Status } from '../OrderList/OrderList';
 import PageError from '../../Misc/PageError/PageError';
+import MetaData from '../../Layout/MetaData/MetaData';
 
 const steps = ["Processing", "In transit", "Delivered"];
 
@@ -185,6 +186,7 @@ const OrderDetails = ({match}) => {
         <div>
             {!pageError ? 
             <Grid className="orderDetails__main" direction="row" container justifyContent="center">
+                {!loading && order && <MetaData title={`Order ${order._id}`} />}
                 <Grid item component={Card} elevation={5} xs={12} md={8} style={{border: "1px solid lightgray"}}>
                     <Grid container>
                         <Grid item xs={12} md={8}>
@@ -195,7 +197,7 @@ const OrderDetails = ({match}) => {
                         {/* <Grid item xs={4} md={3}>
                             <Status status={orderStatus} size="large" />
                           </Grid> */}
-                          <Grid item xs={5} md={3}>
+                          <Grid item xs={8} md={3}>
                             <Typography className="orderDetails__main__heading" variant="h4">
                             {!loading && order ?
                               // <Status status={

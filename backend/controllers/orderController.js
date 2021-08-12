@@ -1,3 +1,5 @@
+const { ObjectId } = require('mongodb'); 
+
 const Order = require('../models/order');
 const Product = require('../models/product');
 
@@ -37,6 +39,10 @@ exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
 
     if(!order) {
         return next(new ErrorHandler("No Order found with this ID", 404));
+    }
+
+    if(order.user._id != req.user.id) {
+        return next(new ErrorHandler("Insufficient Privilege to view resource", 401));
     }
 
     res.status(200).json({

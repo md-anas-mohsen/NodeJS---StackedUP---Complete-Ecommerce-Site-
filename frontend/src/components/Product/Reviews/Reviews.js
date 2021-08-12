@@ -102,7 +102,7 @@ export default function Reviews({openState, reviews, productName}) {
               <CloseIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
-              {`Reviews for ${productName}`}
+              Reviews
             </Typography>
           </Toolbar>
         </AppBar>
