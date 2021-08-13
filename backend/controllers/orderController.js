@@ -1,5 +1,3 @@
-const { ObjectId } = require('mongodb'); 
-
 const Order = require('../models/order');
 const Product = require('../models/product');
 
@@ -90,13 +88,13 @@ exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandler("Order is already in transit", 400));
     }
 
+    order.orderStatus = req.body.orderStatus;
     if (order.orderStatus === "In Transit") {
         order.orderItems.forEach(async (item) => {
             await updateStock(item.productID, item.quantity)
         });
     }
-    
-    order.orderStatus = req.body.orderStatus;
+
     if (req.body.orderStatus === "Delivered") {
         order.deliveredOn = Date.now();
     }
