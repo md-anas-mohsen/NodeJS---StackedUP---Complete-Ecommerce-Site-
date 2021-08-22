@@ -19,9 +19,10 @@ app.use(cookieParser());
 app.use(fileUpload());
 
 app.use(helmet({
-    hidePoweredBy: { setTo: 'PHP/7.3.11' },
     dnsPrefetchControl: false
 }));
+
+app.use(helmet.hidePoweredBy({ setTo: 'PHP/7.3.11' }));
 
 app.use('/api/v1', products);
 app.use('/api/v1', auth);
