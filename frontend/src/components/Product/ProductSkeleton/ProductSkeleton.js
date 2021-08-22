@@ -1,6 +1,6 @@
 import React from 'react';
 import {Skeleton} from '@material-ui/lab';
-import { Card, CardContent } from '@material-ui/core';
+import { Card, CardContent, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles({
@@ -26,9 +26,10 @@ const useStyles = makeStyles({
 
 const ProductSkeleton = () => {
     const classes = useStyles();
+    const xs = useMediaQuery("(max-width:450px)");
 
     return (
-        <Card className={classes.root} elevation={5} style={{border: "1px solid lightgray"}}>
+        <Card className={classes.root} elevation={xs ? 5 : 0}>
             <center>
                 <Skeleton variant="rect" width={210} height={150} />
             </center>

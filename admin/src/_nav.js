@@ -58,6 +58,29 @@ const _nav = [
     to: '/admin/users',
     icon: <CIcon name="cil-user" customClassName="nav-icon" />,
   },
+  {
+    _component: 'CNavGroup',
+    as: NavLink,
+    anchor: 'Banner',
+    to: '/to',
+    icon: <CIcon name="cil-flag-alt" customClassName="nav-icon" />,
+    items: [
+      {
+        _component: 'CNavItem',
+        as: NavLink,
+        anchor: 'All Slides',
+        to: '/admin/banner/allslides',
+        icon: <CIcon name="cib-slides" customClassName="nav-icon" />,
+      },
+      {
+        _component: 'CNavItem',
+        as: NavLink,
+        anchor: 'Add Slide',
+        to: '/admin/banner/addslide',
+        icon: <CIcon name="cib-addthis" customClassName="nav-icon" />,
+      },
+    ],
+  },
 ]
 
 export default _nav

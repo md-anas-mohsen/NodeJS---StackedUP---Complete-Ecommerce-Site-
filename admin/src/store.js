@@ -8,11 +8,14 @@ import {
   userReducer,
 } from './reducers/userReducers'
 import {
+  bannerReducer,
   newProductReducer,
+  newSlideReducer,
   productDetailsReducer,
   productReducer,
   productsReducer,
   reviewReducer,
+  slideReducer,
 } from './reducers/productReducer'
 import { sidebarReducer } from './reducers/sidebarReducer'
 import { orderDetailsReducer, orderReducer, ordersReducer } from './reducers/orderReducers'
@@ -31,6 +34,9 @@ const reducer = combineReducers({
   user: userReducer,
   userDetails: userDetailsReducer,
   sidebar: sidebarReducer,
+  banner: bannerReducer,
+  newSlide: newSlideReducer,
+  slide: slideReducer,
 })
 
 const middleware = [thunk]

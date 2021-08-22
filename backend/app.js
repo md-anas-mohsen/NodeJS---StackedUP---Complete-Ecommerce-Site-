@@ -1,4 +1,5 @@
 const express = require('express');
+const helmet = require('helmet');
 const app = express();
 
 const cookieParser = require('cookie-parser');
@@ -16,6 +17,17 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(fileUpload());
+
+app.use(helmet({
+    hidePoweredBy: { setTo: 'PHP/7.3.11' },
+    contentSecurityPolicy: {
+    directives: {
+        defaultSrc: ["'self'", 'https://fonts.googleapis.com', 'https://fonts.gstatic.com'],
+        styleSrc: ["'self'", 'https://fonts.googleapis.com', 'https://use.fontawesome.com'],
+     }
+    },
+    dnsPrefetchControl: false
+}));
 
 app.use('/api/v1', products);
 app.use('/api/v1', auth);

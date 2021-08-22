@@ -23,6 +23,17 @@ import {
     DELETE_REVIEW_RESET,
     DELETE_REVIEW_FAIL,
     CLEAR_ERRORS,
+    GET_FEATURED_REQUEST,
+    GET_FEATURED_SUCCESS,
+    GET_FEATURED_FAIL,
+    ADD_FEATURED_REQUEST,
+    ADD_FEATURED_SUCCESS,
+    ADD_FEATURED_FAIL,
+    ADD_FEATURED_RESET,
+    DELETE_FEATURED_REQUEST,
+    DELETE_FEATURED_SUCCESS,
+    DELETE_FEATURED_FAIL,
+    DELETE_FEATURED_RESET,
 } from "../constants/productConstants";
 
     export const productsReducer = (
@@ -212,3 +223,109 @@ import {
                             return state;
                     }    
                 }
+
+                export const bannerReducer = (state = { featured: [] }, action) => {
+                    switch (action.type) {
+                        case GET_FEATURED_REQUEST:
+                            return {
+                                ...state,
+                                loading: true
+                            }
+                
+                        case GET_FEATURED_SUCCESS:
+                            return {
+                                loading: false,
+                                featured: action.payload
+                            }
+                
+                        case GET_FEATURED_FAIL:
+                            return {
+                                ...state,
+                                loading: false,
+                                error: action.payload
+                            }
+                
+                        case CLEAR_ERRORS:
+                            return {
+                                ...state,
+                                error: null
+                            }
+                
+                        default:
+                            return state;
+                    }
+                }
+
+                export const newSlideReducer = (state = { slide: null }, action) => {
+                    switch (action.type) {
+                        case ADD_FEATURED_REQUEST:
+                            return {
+                                ...state,
+                                loading: true
+                            }
+                
+                        case ADD_FEATURED_SUCCESS:
+                            return {
+                                loading: false,
+                                success: action.payload
+                            }
+                
+                        case ADD_FEATURED_FAIL:
+                            return {
+                                ...state,
+                                loading: false,
+                                error: action.payload
+                            }
+
+                        case ADD_FEATURED_RESET:
+                            return {
+                                ...state,
+                                success: false
+                            }
+                
+                        case CLEAR_ERRORS:
+                            return {
+                                ...state,
+                                error: null
+                            }
+                
+                        default:
+                            return state;
+                    }
+                }
+
+                export const slideReducer = (
+                    state = {}, 
+                    action) => {
+                        switch(action.type) {
+                            case DELETE_FEATURED_REQUEST:
+                                return {
+                                    ...state,
+                                    loading: true
+                                }
+                            case DELETE_FEATURED_SUCCESS:
+                                return {
+                                    ...state,
+                                    loading: false,
+                                    isDeleted: action.payload
+                                }
+                            case DELETE_FEATURED_FAIL:
+                                return {
+                                    ...state,
+                                    loading: false,
+                                    error: action.payload
+                                }
+                            case DELETE_FEATURED_RESET:
+                                return {
+                                    ...state,
+                                    isDeleted: false
+                                }
+                            case CLEAR_ERRORS:
+                                return {
+                                    ...state,
+                                    error: null
+                                }
+                            default:
+                                return state;
+                        }    
+                    }

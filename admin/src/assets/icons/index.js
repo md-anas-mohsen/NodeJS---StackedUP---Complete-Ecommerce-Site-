@@ -30,6 +30,7 @@ import {
   cibGoogle,
   cibProductHunt,
   cibAddthis,
+  cibSlides,
 } from '@coreui/icons'
 import { cifUs, cifBr, cifIn, cifFr, cifEs, cifPl } from '@coreui/icons'
 import {
@@ -128,6 +129,7 @@ import {
   cilXCircle,
   cilWarning,
   cilTruck,
+  cilFlagAlt,
 } from '@coreui/icons'
 
 export const icons = Object.assign(
@@ -233,6 +235,7 @@ export const icons = Object.assign(
     cilXCircle,
     cilWarning,
     cilTruck,
+    cilFlagAlt,
   },
   {
     cifUs,
@@ -270,5 +273,6 @@ export const icons = Object.assign(
     cibGoogle,
     cibProductHunt,
     cibAddthis,
+    cibSlides,
   },
 )

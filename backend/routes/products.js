@@ -11,7 +11,10 @@ const { getProducts,
         createProductReview,
         getProductReviews,
         deleteReview, 
-        getAllProducts} = require('../controllers/productController');
+        getAllProducts,
+        getFeatured,
+        newFeatured,
+        deleteFeatured} = require('../controllers/productController');
 
 router.get('/products', getProducts);
 router.get('/products/:id', getProduct);
@@ -24,5 +27,9 @@ router.post('/admin/products/', isAuthenticatedUser, authorizedRoles("admin"), n
 router.post('/products/:id', isAuthenticatedUser, createProductReview);
 router.get('/reviews', isAuthenticatedUser, getProductReviews);
 router.delete('/reviews', isAuthenticatedUser, deleteReview);
+
+router.get('/featured', getFeatured);
+router.post('/admin/featured', isAuthenticatedUser, authorizedRoles("admin"), newFeatured);
+router.delete('/admin/featured/:id', isAuthenticatedUser, authorizedRoles("admin"), deleteFeatured);
 
 module.exports = router;

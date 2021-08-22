@@ -11,6 +11,8 @@ const AllUsers = React.lazy(() => import('./views/pages/users/AllUsers'))
 const UpdateUser = React.lazy(() => import('./views/pages/users/UpdateUser'))
 const ProductReviews = React.lazy(() => import('./views/pages/products/ProductReviews'))
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
+const AllSlides = React.lazy(() => import('./views/pages/banner/AllSlides'))
+const AddSlide = React.lazy(() => import('./views/pages/banner/AddSlide'))
 
 const routes = [
   { path: '/', exact: true, name: 'Admin' },
@@ -45,6 +47,8 @@ const routes = [
   { path: '/admin/orders/:id', name: 'Process Order', component: ProcessOrder },
   { path: '/admin/users', name: 'All Users', component: AllUsers, exact: true },
   { path: '/admin/users/:id', name: 'Update User', component: UpdateUser },
+  { path: '/admin/banner/allslides', name: 'All Slides', component: AllSlides },
+  { path: '/admin/banner/addslide', name: 'Add Slide', component: AddSlide },
 ]
 
 export default routes

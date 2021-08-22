@@ -12,6 +12,7 @@ import StarHalfRoundedIcon from '@material-ui/icons/StarHalfRounded';
 import Rating from '@material-ui/lab/Rating';
 import './styles/ProductCard.css';
 import { Link } from 'react-router-dom';
+import { useMediaQuery } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
@@ -35,10 +36,11 @@ const useStyles = makeStyles({
 });
 
 const ProductCard = ({name, image, price, ratings, numOfReviews, productID}) => {
-    const classes = useStyles();
+  const classes = useStyles();
+  const xs = useMediaQuery("(max-width:450px)");
 
   return (
-    <Card className={classes.root} elevation={5} style={{border: "1px solid lightgray"}}>
+    <Card className={classes.root} elevation={xs ? 5 : 0}>
         <img
           src={image.url}
           alt={name}

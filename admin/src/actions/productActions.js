@@ -21,6 +21,15 @@ import {
     DELETE_REVIEW_SUCCESS,
     DELETE_REVIEW_FAIL,
     CLEAR_ERRORS,
+    GET_FEATURED_REQUEST,
+    GET_FEATURED_SUCCESS,
+    GET_FEATURED_FAIL,
+    ADD_FEATURED_REQUEST,
+    ADD_FEATURED_SUCCESS,
+    ADD_FEATURED_FAIL,
+    DELETE_FEATURED_REQUEST,
+    DELETE_FEATURED_SUCCESS,
+    DELETE_FEATURED_FAIL,
 } from "../constants/productConstants";
 
 export const getProducts = () => async (dispatch) => {
@@ -151,6 +160,68 @@ export const deleteReview = (productID, reviewID) => async (dispatch) => {
     } catch(error) {
         dispatch({
             type: DELETE_REVIEW_FAIL,
+            payload: error.response.data.message
+        });
+    }
+}
+
+export const getFeatured = () => async(dispatch) => {
+    try {
+        dispatch({ type: GET_FEATURED_REQUEST });
+        const { data } = await axios.get('/api/v1/featured');
+            dispatch({
+                type: GET_FEATURED_SUCCESS,
+                payload: data.featured
+        });
+    } catch (error) {
+        dispatch({
+            type: GET_FEATURED_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
+
+export const addFeatured = (slideData) => async (dispatch) => {
+    try {
+        dispatch({
+            type: ADD_FEATURED_REQUEST
+        });
+
+        const config = {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }
+
+        const { data } = await axios.post("/api/v1/admin/featured", slideData, config);
+        
+        dispatch({
+            type: ADD_FEATURED_SUCCESS,
+            payload: data.success
+        });
+    } catch(error) {
+        dispatch({
+            type: ADD_FEATURED_FAIL,
+            payload: error.response.data.message
+        });
+    }
+}
+
+export const deleteFeatured = (slideID) => async (dispatch) => {
+    try {
+        dispatch({
+            type: DELETE_FEATURED_REQUEST
+        });
+
+        const { data } = await axios.delete(`/api/v1/admin/featured/${slideID}`);
+        
+        dispatch({
+            type: DELETE_FEATURED_SUCCESS,
+            payload: data.success
+        });
+    } catch(error) {
+        dispatch({
+            type: DELETE_FEATURED_FAIL,
             payload: error.response.data.message
         });
     }

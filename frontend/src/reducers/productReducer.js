@@ -5,11 +5,14 @@ import {
     PRODUCT_DETAILS_REQUEST,
     PRODUCT_DETAILS_SUCCESS,
     PRODUCT_DETAILS_FAIL,
-    CLEAR_ERRORS,
     NEW_REVIEW_REQUEST,
     NEW_REVIEW_SUCCESS,
     NEW_REVIEW_FAIL,
-    NEW_REVIEW_RESET
+    NEW_REVIEW_RESET,
+    GET_FEATURED_REQUEST,
+    GET_FEATURED_SUCCESS,
+    GET_FEATURED_FAIL,
+    CLEAR_ERRORS
 } from "../constants/productConstants";
 
 export const productsReducer = (
@@ -103,6 +106,38 @@ export const productsReducer = (
             case NEW_REVIEW_FAIL:
                 return {
                     ...state,
+                    error: action.payload
+                }
+    
+            case CLEAR_ERRORS:
+                return {
+                    ...state,
+                    error: null
+                }
+    
+            default:
+                return state;
+        }
+    }
+
+    export const featuredReducer = (state = { featured: [] }, action) => {
+        switch (action.type) {
+            case GET_FEATURED_REQUEST:
+                return {
+                    ...state,
+                    loading: true
+                }
+    
+            case GET_FEATURED_SUCCESS:
+                return {
+                    loading: false,
+                    featured: action.payload
+                }
+    
+            case GET_FEATURED_FAIL:
+                return {
+                    ...state,
+                    loading: false,
                     error: action.payload
                 }
     

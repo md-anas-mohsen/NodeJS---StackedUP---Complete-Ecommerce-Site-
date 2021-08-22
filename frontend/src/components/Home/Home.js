@@ -4,16 +4,18 @@ import ProductCard from '../Product/ProductCard/ProductCard';
 import "./styles/Home.css";
 import MetaData from '../Layout/MetaData/MetaData';
 import { createTheme, ThemeProvider } from '@material-ui/core';
-
+import { Card } from '@material-ui/core';
 import {useDispatch, useSelector} from 'react-redux';
-import {getProducts} from '../../actions/productActions';
+import {getFeatured, getProducts} from '../../actions/productActions';
 import ProductSkeleton from '../Product/ProductSkeleton/ProductSkeleton';
 import { Fragment } from 'react';
 import { AppContext } from '../../context/AppContext';
-import { Pagination, Rating } from '@material-ui/lab';
+import { Pagination, Rating, Skeleton } from '@material-ui/lab';
 import useQuery from '../../hooks/useQuery';
 import RangeSlider from '../Misc/RangeSlider/RangeSlider';
 import { useHistory } from 'react-router-dom';
+import { LemonMeringue } from '../Misc/Colors/Colors';
+import HomeCarousel from './HomeCarousel/HomeCarousel';
 
 export const titleTheme = createTheme({
     typography: {
@@ -26,7 +28,9 @@ export const titleTheme = createTheme({
 
 const Home = () => {
     const {loading, products, error, productCount, resPerPage} = useSelector(state => state.products);
+    const {loading: loadingFeatured, featured, error: featuredError} = useSelector(state => state.featured);
     const dispatch = useDispatch();
+    const xs = useMediaQuery("(max-width:450px)");
     const sm = useMediaQuery("(max-width:600px)");
     const {alertState, priceState, keywordState, categoryState, ratingState, searchQueryState} = useContext(AppContext);
     const [, setAlert] = alertState;
@@ -43,15 +47,18 @@ const Home = () => {
     // const minPrice = query.get("price[gte]") || 1;
     // const maxPrice = query.get("price[lte]") || 100000;
     const[page, setPage] = useState(1);
+
     useEffect(() => {
         if(category) {
             setPage(1);
         }
     }, [category]);
+
+    //loading corresponding results for query
     useEffect(() => {
         setKeyword(query.get("keyword") || "");
         setCategory(query.get("category") || "");
-        setPrice([query.get("price[gte]") || 1, query.get("price[lte]") || 100000]);
+        setPrice([query.get("price[gte]") || 1, query.get("price[lte]") || 1000]);
         setRating(query.get("rating[gte]") || 0);
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -61,23 +68,46 @@ const Home = () => {
     }, [keyword, price, history, searchQuery, setPrice]);
 
     useEffect(() => {
+        if(!keyword && !category) {
+            dispatch(getFeatured());
+        }
         if(error) {
             return setAlert({message: error, type: "error"});
         }
+        if(featuredError) {
+            return setAlert({message: featuredError, type: "error"});
+        }
         dispatch(getProducts(keyword, page, price, category, rating));
-    }, [dispatch, error, keyword, page, price, setAlert, category, rating]);
+    }, [dispatch, error, featuredError, keyword, page, price, setAlert, category, rating]);
 
     useEffect(() => {
         setPage(1);
     }, [keyword, setPage]);
 
     return (
+        <>
+        {!keyword && !category && !loadingFeatured ?
+            <Card elevation={5} style={{ borderRadius: "0" }}>
+                <div className="home__featured">
+                    {!loadingFeatured && featured &&
+                    <HomeCarousel featured={featured} />}
+                </div>
+            </Card>
+            :!keyword && !category && loadingFeatured &&
+                <Skeleton variant="rect" height={sm ? 230 : 430} />
+            }
         <div className="home">
-            <MetaData title={!keyword ? "Home" : keyword} />
+            <MetaData title={
+                !keyword && !category ? "Home" 
+                :category && !keyword ? category
+                : keyword} 
+            />
+            <Card elevation={5} style={{ border: "1px solid lightgray", paddingTop: !sm ? "50px" : "0", backgroundColor: xs ? LemonMeringue : "#fff" }}>
             <ThemeProvider theme={titleTheme}>
-                <Typography variant={sm ? "h5" : "h3"} align="center">
+                {(category || (!category && !keyword)) &&
+                <Typography component="h1" className="home__title" variant={sm ? "h4" : "h3"} align="center">
                     {!category && !keyword ? "Latest Products" : category}
-                </Typography>
+                </Typography>}
             </ThemeProvider>
             {category || keyword ? 
                 <div className="home__filters">
@@ -150,7 +180,9 @@ const Home = () => {
                     />
                 </div>
             ): null}
+            </Card>
         </div>
+        </>
     )
 }
 

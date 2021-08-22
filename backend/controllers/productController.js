@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const Featured = require('../models/featured');
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const APIFeatures = require('../utils/apiFeatures');
@@ -201,5 +202,50 @@ exports.deleteReview = catchAsyncErrors(async (req, res, next) => {
     
     res.status(200).json({
         success: true
+    });
+});
+
+exports.getFeatured = catchAsyncErrors(async (req, res, next) => {
+    const featured = await Featured.find();
+
+    res.status(200).json({
+        featured: featured
+    });
+});
+
+exports.newFeatured = catchAsyncErrors(async (req, res, next) => {
+    let image = "";
+    if (typeof req.body.image === 'string') {
+        image = req.body.image;
+    }
+    
+    let imageLink = "";
+    const result = await cloudinary.v2.uploader.upload(image, { folder: 'featured' });
+    imageLink = {
+        public_id: result.public_id,
+        url: result.secure_url
+    };
+    req.body.image = imageLink;
+    
+    const featuredSlide = await Featured.create(req.body);
+    res.status(200).json({
+        success: true,
+        featured: featuredSlide
+    });
+});
+
+exports.deleteFeatured = catchAsyncErrors(async (req, res, next) => {
+    let featuredSlide = await Featured.findById(req.params.id);
+    if (!featuredSlide) {
+        return next(new ErrorHandler("Featured slide not found", 404));
+    }
+    
+    const result = await cloudinary.v2.uploader.destroy(featuredSlide.image.public_id);
+
+    await Featured.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({
+        success: true,
+        message: "Featured slide deleted successfully"
     });
 });

@@ -10,7 +10,10 @@ import {
     CLEAR_ERRORS,
     NEW_REVIEW_REQUEST,
     NEW_REVIEW_SUCCESS,
-    NEW_REVIEW_FAIL
+    NEW_REVIEW_FAIL,
+    GET_FEATURED_REQUEST,
+    GET_FEATURED_SUCCESS,
+    GET_FEATURED_FAIL
 } from "../constants/productConstants";
 
 export const getProducts = (keyword = "", page = 1, price = [1, 10000], category, rating = 0) => async (dispatch) => {
@@ -73,11 +76,26 @@ export const newReview = (reviewData, productID) => async (dispatch) => {
             payload: data.success
         });
     } catch (error) {
-        console.log(error);
         dispatch({
             type: NEW_REVIEW_FAIL,
             payload: error.response.data.message
         });
+    }
+}
+
+export const getFeatured = () => async(dispatch) => {
+    try {
+        dispatch({ type: GET_FEATURED_REQUEST });
+        const { data } = await axios.get('/api/v1/featured');
+            dispatch({
+                type: GET_FEATURED_SUCCESS,
+                payload: data.featured
+        });
+    } catch (error) {
+        dispatch({
+            type: GET_FEATURED_FAIL,
+            payload: error.response.data.message
+        })
     }
 }
 

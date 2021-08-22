@@ -8,6 +8,7 @@ import { clearErrors, getProducts, newProduct } from 'src/actions/productActions
 import CIcon from '@coreui/icons-react'
 import { useHistory } from 'react-router-dom'
 import { NEW_PRODUCT_RESET } from 'src/constants/productConstants'
+import Metadata from 'src/reusable/Metadata'
 
 const AddProduct = () => {
     const dispatch = useDispatch()
@@ -82,11 +83,12 @@ const AddProduct = () => {
             formData.append('images', image)
         })
         
-        dispatch(newProduct(formData))
+        dispatch(newProduct(formData));
     }
 
     return (
         <>
+        <Metadata title="Add Product" />
         <CCard className="mb-4">
             <CCardHeader>
             Add Product
