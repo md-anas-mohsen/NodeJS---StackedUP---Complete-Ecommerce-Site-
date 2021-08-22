@@ -20,12 +20,6 @@ app.use(fileUpload());
 
 app.use(helmet({
     hidePoweredBy: { setTo: 'PHP/7.3.11' },
-    contentSecurityPolicy: {
-    directives: {
-        defaultSrc: ["'self'", 'https://fonts.googleapis.com', 'https://fonts.gstatic.com'],
-        styleSrc: ["'self'", 'https://fonts.googleapis.com', 'https://use.fontawesome.com'],
-     }
-    },
     dnsPrefetchControl: false
 }));
 
