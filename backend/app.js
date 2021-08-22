@@ -13,16 +13,12 @@ const payment = require('./routes/payment');
 
 const errorMiddleware = require('./middlewares/errors');
 
+
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(fileUpload());
-
-app.use(helmet({
-    dnsPrefetchControl: false
-}));
-
-app.use(helmet.hidePoweredBy({ setTo: 'PHP/7.3.11' }));
 
 app.use('/api/v1', products);
 app.use('/api/v1', auth);
